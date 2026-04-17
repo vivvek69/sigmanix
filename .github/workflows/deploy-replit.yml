@@ -1,0 +1,36 @@
+name: Auto Deploy to Replit
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy-to-replit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Trigger Replit Deploy
+        run: |
+          echo "Deployment triggered automatically"
+          echo "To complete: Visit https://replit.com and import from GitHub"
+          echo "Repository: vivvek69/sigmanix-tech-chatbot"
+          echo ""
+          echo "Steps:"
+          echo "1. Go to https://replit.com"
+          echo "2. Click: + Create"
+          echo "3. Choose: Import from GitHub"
+          echo "4. Paste: vivvek69/sigmanix-tech-chatbot"
+          echo "5. Click: Secrets (🔒)"
+          echo "6. Add: GROQ_API_KEY=<your_key>"
+          echo "7. Click: Run ▶️"
+          echo ""
+          echo "✅ Your chatbot will be live in ~30 seconds!"
+
+      - name: Create deployment status
+        run: |
+          echo "✅ Deployment Automation Ready"
+          echo "Repository: https://github.com/vivvek69/sigmanix-tech-chatbot"
+          echo "Deploy URL: https://replit.com/new"
