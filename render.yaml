@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: sigmanix-chatbot
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn chatbot_production:app
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11
+      - key: PORT
+        value: 10000
+      - key: FLASK_ENV
+        value: production
