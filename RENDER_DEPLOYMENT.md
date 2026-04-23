@@ -239,7 +239,7 @@ git push origin main
 
 ## 📊 RENDER DASHBOARD
 
-After deployment, use Render dashboard to:
+After deployment, use Render dashboard 
 
 1. **View Logs:** Real-time server output
 2. **Monitor:** CPU, memory, bandwidth usage

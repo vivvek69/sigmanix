@@ -111,6 +111,13 @@ Phone: +91 7702476969 | Email: hr@sigmanixtech.com | Location: Bangalore, India
 🎓 COURSES:
 Python with AI (2 months) • Gen AI & Agentic AI (3 months) • Data Analytics (2.5 months) • DevOps (3 months) • Full Stack, Cloud AWS, Cybersecurity, Data Science, RPA, AI Mastery
 
+🌟 CLASS OPTIONS:
+• Weekend Classes - Learn on weekends!
+• Hybrid Classes - Mix of online & offline training  
+• Fully Online - Complete flexibility
+• Classroom Training - Bangalore location
+Faculty will provide specific timings upon enrollment!
+
 RESPONSE LENGTH RULES (CRITICAL!):
 - NEVER write long paragraphs
 - NEVER use multiple sentences if one is enough
@@ -155,11 +162,11 @@ MENU_RESPONSES = {
         ],
     },
     "duration": {
-        "reply": "⏱️ **Course Durations & Schedule:**\n• Python Programming: 2 months (40 hours)\n• Gen AI: 3 months (60 hours)\n• Data Analytics: 2.5 months (50 hours)\n• DevOps: 3 months (60 hours)\n\nWe offer flexible timings - online, offline, weekends! What works for you?",
+        "reply": "⏱️ **Course Durations:**\n• Python Programming: 2 months\n• Gen AI: 3 months\n• Data Analytics: 2.5 months\n• DevOps: 3 months\n\n✨ **Class Formats Available:**\n🌙 Weekend Classes - Learn on your schedule!\n💻 Hybrid Classes - Mix of online & offline\n📱 Fully Online - Study from anywhere\n🏢 Classroom Training - In-person at Bangalore\n\nOur faculty will share exact timings when you enroll!",
         "options": [
-            {"label": "🌙 Weekend Classes", "value": "Do you offer weekend batches?"},
-            {"label": "💼 Weekday Classes", "value": "What are the weekday timings?"},
-            {"label": "📱 Online Classes", "value": "Can I study online?"},
+            {"label": "🌙 Weekend Classes", "value": "Tell me about weekend classes"},
+            {"label": "💻 Hybrid Classes", "value": "How do hybrid classes work?"},
+            {"label": "📱 Online Classes", "value": "Can I study completely online?"},
             {"label": "🏢 Offline Classes", "value": "Do you have classroom training?"},
         ],
     },
@@ -403,7 +410,7 @@ def index():
         .options-container { display: flex; flex-wrap: wrap; gap: 8px; margin: 8px 0 4px 0; width: 100%; animation: fadeIn 0.25s ease-out; }
         .options-btn { padding: 10px 14px; background: white; color: #667eea; border: 2px solid #667eea; border-radius: 8px; cursor: pointer; font-size: 12px; font-weight: 600; transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1); flex: 0 1 auto; white-space: nowrap; }
         .options-btn:hover { background: #667eea; color: white; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3); }
-        .menu-buttons { padding: 12px; background: white; border-top: 1px solid #e0e7ff; display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; flex-shrink: 0; }
+        .menu-buttons { padding: 12px; background: white; border-top: 1px solid #e0e7ff; display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; flex-shrink: 0; }
         .menu-btn { padding: 12px; border: 2px solid #e0e7ff; background: white; border-radius: 10px; cursor: pointer; font-size: 22px; transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); display: flex; align-items: center; justify-content: center; }
         .menu-btn:hover { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-color: #667eea; transform: scale(1.15); box-shadow: 0 4px 12px rgba(102, 126, 234, 0.25); }
         .menu-btn:active { transform: scale(1.05); }
@@ -560,6 +567,7 @@ def index():
             <button class="menu-btn" onclick="selectMenu('placements')" title="Placements">💼</button>
             <button class="menu-btn" onclick="selectMenu('registration')" title="Registration">📝</button>
             <button class="menu-btn" onclick="selectMenu('feedback')" title="Feedback">⭐</button>
+            <button class="menu-btn" onclick="goBack()" title="Go Back">⬅️</button>
         </div>
         <div class="input-area">
             <input type="text" id="userInput" placeholder="Ask a question..." onkeypress="handleEnter(event)">
@@ -815,6 +823,23 @@ def index():
                 event.preventDefault();
                 sendMessage();
             }
+        }
+        
+        function goBack() {
+            const chatArea = document.getElementById('chatArea');
+            if (chatArea.children.length > 0) {
+                // Remove last bot message and its options
+                const messages = chatArea.querySelectorAll('.message-wrapper');
+                if (messages.length > 0) {
+                    messages[messages.length - 1].remove();
+                }
+                const options = chatArea.querySelectorAll('.options-container');
+                if (options.length > 0) {
+                    options[options.length - 1].remove();
+                }
+            }
+            // Show main menu
+            selectMenu('menu');
         }
         
         // Initialize

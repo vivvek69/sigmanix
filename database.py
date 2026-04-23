@@ -15,6 +15,10 @@ def init_database():
     conn = get_connection()
     cursor = conn.cursor()
     
+    # Enable WAL mode for better concurrency with multiple devices
+    conn.execute('PRAGMA journal_mode=WAL')
+    conn.execute('PRAGMA synchronous=NORMAL')
+    
     # Students table
     cursor.execute('''
     CREATE TABLE IF NOT EXISTS students (
