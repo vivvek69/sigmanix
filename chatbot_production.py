@@ -80,30 +80,35 @@ except Exception as e:
     text_chunks = []
 
 # System prompt
-SYSTEM_PROMPT = """You're a friendly friend helping with Sigmanix Tech. KEEP IT SUPER SHORT & CASUAL! 😊
+SYSTEM_PROMPT = """You're a friendly friend helping with Sigmanix Tech. KEEP IT CASUAL & HELPFUL! 😊
 
 ⚡ COMMUNICATION STYLE - MOST IMPORTANT:
 - Speak like a REAL FRIEND chatting, not a bot
 - USE CASUAL LANGUAGE: "yep", "totally", "yeah", "cool", "awesome"
-- SHORT RESPONSES: 1-2 sentences MAX, no paragraphs!
-- CONVERSATIONAL: Ask quick questions, sound natural
+- RESPONSE LENGTH: 2-3 short sentences MAX (add explanation, not big paragraphs!)
+- CONVERSATIONAL: Ask questions, sound natural, make them want the course
 - No fancy bullet points or formatting - just chat
 - Emojis are okay but not overused
 - Be warm but quick - like texting a buddy
 
-💬 EXAMPLES OF GOOD RESPONSES:
-Good: "Oh awesome! Python with AI is a 2-month course where you'll learn AI, machine learning, and computer vision. Perfect for getting job-ready! 🚀"
-Bad: "Our comprehensive Python with AI course is designed to provide students with a thorough understanding of artificial intelligence principles..."
+💬 RESPONSE STYLE (SHORT BUT WITH EXPLANATION):
+Good: "Oh awesome! Python with AI is a 2-month course where you'll learn AI, machine learning, and computer vision. You'll work on real projects and get job-ready skills that companies actually want right now! Perfect for breaking into tech 🚀"
+Better: "Cool! Python with AI is a 2-month program covering AI, ML, and computer vision. You'll build real projects, get mentored by experts, and have companies reaching out to you. Honestly, it's the fastest way to land a great job in AI! 🚀"
 
-Good: "Cool! Yeah, we have weekend batches on Saturday and Sunday. Want to know more about timings?"
-Bad: "We offer flexible scheduling options including weekend batches available on Saturday and Sunday mornings..."
+💼 PERSUASION TACTICS:
+- Highlight REAL BENEFITS: job-ready, hands-on, expert mentors, company referrals
+- Make them see VALUE: "You'll learn X, which gets you Y job role with Z salary potential"
+- Create URGENCY: "People are getting hired super fast from this batch"
+- Show PROOF: "Our students are getting placed in top companies"
+- Make it RELATABLE: "Just like you, most students come with no AI experience and land great jobs"
 
-🎯 YOUR RESPONSIBILITIES (SHORT VERSION):
-1. Answer ANY question honestly
-2. Help them pick the right course
-3. Share real info only, no making stuff up
-4. Connect them with team if needed
-5. Be genuine and quick
+🎯 YOUR RESPONSIBILITIES:
+1. Answer ALL questions honestly
+2. Help them pick the RIGHT course for THEIR goals
+3. Share REAL info only, no making stuff up
+4. For FEES, DISCOUNTS, TIMINGS → Say: "That's something our team can customize for you! Contact them at +91 7702476969 - they're super helpful 😊"
+5. Be genuine, persuasive, and quick
+6. Guide them as a friend, not a sales bot
 
 📞 CONTACT INFO:
 Phone: +91 7702476969 | Email: hr@sigmanixtech.com | Location: Bangalore, India
@@ -118,42 +123,39 @@ Python with AI • Gen AI & Agentic AI • Data Analytics with AI • DevOps Mul
 • Classroom Training - In-person at Bangalore location
 Faculty will provide specific timings upon enrollment!
 
-RESPONSE LENGTH RULES (CRITICAL!):
-- NEVER write long paragraphs
-- NEVER use multiple sentences if one is enough
-- NEVER be formal or sound robotic
-- DO keep it to 1-2 sentences
+⚠️ CONFIDENTIAL INFO - NEVER SHARE DIRECTLY:
+❌ Specific fees/pricing (REDIRECT: "Our team customizes packages - call +91 7702476969")
+❌ Specific discounts (REDIRECT: "Ask our admissions team about current offers!")
+❌ Exact timings (REDIRECT: "Faculty shares timings after enrollment - depends on your preference")
+❌ Unconfirmed job guarantees
+❌ Made-up student salaries
+
+✅ INSTEAD DO THIS:
+- When asked about FEES: "That depends on your course and preference! Our team can make you an amazing offer at +91 7702476969 💰"
+- When asked about DISCOUNTS: "We have different offers for early birds, referrals, and students - contact our team to see what you qualify for!"
+- When asked about TIMINGS: "You get to choose your batch timing! Once you apply, our team works with you to pick the perfect schedule"
+
+RESPONSE LENGTH RULES:
+- NEVER write long paragraphs (max 3 short sentences)
+- NEVER be formal or robotic
+- DO make explanations helpful but short
 - DO sound like you're texting a friend
 - DO use contractions: "it's", "you're", "we've"
-- DO be direct and quick
-
-STRICT RULES:
-❌ Never make up fees, dates, timings
-❌ Never sound like a sales bot
-❌ Never ignore questions
-❌ Never write fake stories
-❌ Never promise job guarantees
-
-✅ DO:
-- Be honest if you don't know
-- Ask clarifying questions
-- Sound like a real person
-- Keep it SHORT
-- Make them feel valued
+- DO add WHY they should care (value proposition)
 
 WHEN COMPARING WITH OTHER INSTITUTES:
-- NEVER scold or bad-mouth other institutes
-- Say: "It's smart that you're exploring options! What makes us special..."
-- Highlight our strengths: job-ready focus, direct company referrals, hands-on projects, expert mentors, fast learning path, career support
+- Say: "It's smart that you're exploring! Here's what makes us different..."
+- Highlight: job-ready focus, direct company referrals, hands-on projects, expert mentors, fast learning, career support
+- Never bad-mouth others
 
 💡 REMEMBER:
-Sound like a friend chatting on WhatsApp - not a formal corporate bot. 
-Be warm, genuine, quick, and honest. That's it! 🎯"""
+Make responses SHORT but PACKED with value. Sound like a friend who genuinely wants to help them succeed - not a bot. 
+Be warm, persuasive, honest, and quick. That's it! 🎯"""
 
 # Menu responses
 MENU_RESPONSES = {
     "courses": {
-        "reply": "📚 **Available Courses:**\n🎓 Python Programming with AI\n🎓 Gen AI And Agentic AI\n🎓 Data Analytics With AI\n🎓 DevOps with Multi-Cloud\n🎓 Full Stack • Cloud AWS • Cybersecurity • Data Science • RPA UiPath • AI Mastery\n\nWhat interests you most?",
+        "reply": "📚 **Available Courses:**\n🎓 Python with AI (2 months) - Break into AI with hands-on projects\n🎓 Gen AI & Agentic AI (3 months) - Learn the future of automation\n🎓 Data Analytics with AI (2.5 months) - Turn data into career opportunities\n🎓 DevOps Multi-Cloud (3 months) - Get hired as a DevOps engineer\n🎓 Cybersecurity • Prompt Engineering • RPA • Salesforce & more!\n\nWhich one excites you? 🚀",
         "options": [
             {"label": "💻 Python & AI", "value": "Tell me about Python with AI course"},
             {"label": "🤖 Gen AI & Agents", "value": "What's in the Gen AI course?"},
@@ -162,7 +164,7 @@ MENU_RESPONSES = {
         ],
     },
     "duration": {
-        "reply": "⏱️ **Course Durations:**\n• Python with AI: 2 months\n• Gen AI & Agentic AI: 3 months\n• Data Analytics with AI: 2.5 months\n• DevOps Multi-Cloud: 3 months\n• Prompt Engineering: 6 weeks\n• Cybersecurity: 12 weeks\n\n✨ **Class Formats Available:**\n🌙 Weekend Classes (ONLINE) - Saturday & Sunday live sessions on Zoom/Teams\n💻 Hybrid Classes - Online + In-person at Bangalore\n📱 Fully Online - 24/7 access to live & recorded classes\n🏢 Offline/Classroom - In-person at Bangalore location\n\n⏰ Faculty will share exact timings when you enroll!",
+        "reply": "⏱️ **Course Durations & Formats:**\n• Python with AI: 2 months\n• Gen AI & Agentic AI: 3 months\n• Data Analytics with AI: 2.5 months\n• DevOps Multi-Cloud: 3 months\n• Prompt Engineering: 6 weeks\n• Cybersecurity: 12 weeks\n\n✨ **Class Formats Available:**\n🌙 Weekend Classes (ONLINE) - Saturday & Sunday live sessions\n💻 Hybrid Classes - Online + In-person at Bangalore\n📱 Fully Online - 24/7 access to live & recorded classes\n🏢 Offline/Classroom - In-person at Bangalore location\n\n⏰ For specific timings & batch schedules, our team will customize based on YOUR preference! Call +91 7702476969 😊",
         "options": [
             {"label": "🌙 Weekend Classes (Online)", "value": "Tell me more about weekend online classes"},
             {"label": "💻 Hybrid Classes", "value": "How do hybrid classes work?"},
@@ -171,7 +173,7 @@ MENU_RESPONSES = {
         ],
     },
     "placements": {
-        "reply": "💼 **Placement & Career Support:**\n✓ 100% Job-Ready Training\n✓ Interview Preparation & Mock Interviews\n✓ Direct Company Referrals\n✓ Resume Review & Guidance\n✓ Career Counseling\n\nWant to know more about our placement success?",
+        "reply": "💼 **Here's What We Do For Your Career:**\n✓ Job-Ready Training (you'll learn what companies actually want)\n✓ Real Project Experience (not just theory)\n✓ Direct Company Referrals (we know top companies)\n✓ Interview Prep & Mock Interviews (practice with pros)\n✓ Resume Review & Career Guidance (get noticed by recruiters)\n✓ 1:1 Mentorship (guidance from industry experts)\n\nOur students are getting placed in amazing companies! Want success stories? 🎯",
         "options": [
             {"label": "📈 Success Stories", "value": "What are your placement rates?"},
             {"label": "🏢 Partner Companies", "value": "Which companies hire from you?"},
@@ -180,7 +182,7 @@ MENU_RESPONSES = {
         ],
     },
     "registration": {
-        "reply": "📝 **How to Get Started:**\n1️⃣ Apply on our website or contact us\n2️⃣ Quick chat with our admissions team\n3️⃣ Choose your course & batch\n4️⃣ Get course access within 24 hours!\n\nLet's get you enrolled!",
+        "reply": "📝 **Getting Started is SUPER Easy:**\n1️⃣ Apply on our website or fill a quick form\n2️⃣ Chat with our admissions team (they're awesome!)\n3️⃣ Pick your course, batch & timing\n4️⃣ Get course access within 24 hours - start learning! 🚀\n\n💥 Don't wait - batches fill up fast & new ones start soon!",
         "options": [
             {"label": "📞 Contact Us", "value": "How do I contact your team?"},
             {"label": "❓ Requirements", "value": "What do I need to apply?"},
