@@ -14,57 +14,118 @@ Mission: Deliver practical, job-oriented technical education that helps you gain
 Vision: Bridge the gap between learning and industry by creating confident, skilled professionals ready for tomorrow's tech world.
 
 TRAINING FORMATS OFFERED:
-✓ Online Training (Live Classes + Recordings)
-✓ Offline Training (In-person Classroom)
-✓ Weekend Training (Saturday & Sunday batches)
-✓ Corporate Training (Customized for companies)
-✓ Hybrid Classroom & Online (Mix of both)
+✓ Online Training (Live Classes + Recordings) - 24/7 access to classes from anywhere
+✓ Weekend Training (ONLINE on Saturday & Sunday) - Perfect for working professionals
+✓ Offline Training (In-person Classroom at Bangalore) - Face-to-face learning experience
+✓ Hybrid Training (Mix of Online & Offline) - Flexible combination of both formats
+✓ Corporate Training (Customized for companies) - Tailored solutions for enterprises
 
-FEATURED COURSES:
+IMPORTANT: All weekend classes are FULLY ONLINE. No specific timings yet - Faculty will share exact timing after enrollment!
 
-1. PYTHON WITH AI
+FEATURED COURSES (MOST POPULAR):
+
+1. PYTHON WITH AI (2 MONTHS)
    - Comprehensive journey from Python fundamentals to advanced AI
    - Topics: Data handling, visualization, machine learning, computer vision, LLMs
-   - Includes: Deep learning, modern NLP techniques, deployment, version control
+   - Includes: Deep learning, modern NLP techniques, deployment, version control, ethical AI practices
    - Hands-on: Mini projects and capstone on intelligent learning systems
+   - Format: Online, Offline, Weekend (Online), Hybrid
    - Rating: 4.5/5 stars
    - Link: https://sigmanixtech.com/courses/41
+   - Perfect for: Career switchers, beginners, professionals upskilling
 
-2. GEN AI AND AGENTIC AI
+2. GEN AI AND AGENTIC AI (3 MONTHS)
    - Hands-on Generative AI and Agentic AI training program
    - Topics: LLM foundations, prompt engineering, embeddings, vector databases, RAG systems, multi-agent architectures, fine-tuning, multimodal AI
    - Includes: Real-world projects and enterprise-grade multi-agent AI system capstone
+   - Format: Online, Offline, Weekend (Online), Hybrid
    - Rating: 4.7/5 stars
    - Link: https://sigmanixtech.com/courses/36
+   - Perfect for: AI enthusiasts, developers looking to master cutting-edge AI
 
-3. DATA ANALYTICS WITH AI
-   - Fundamentals of data analytics and AI
-   - Topics: Data collection, preprocessing, exploratory analysis, machine learning, NLP, time series
+3. DATA ANALYTICS WITH AI (2.5 MONTHS)
+   - Fundamentals of data analytics and AI with practical applications
+   - Topics: Data collection, preprocessing, exploratory analysis, machine learning, NLP, time series analysis
    - Includes: Data visualization, storytelling, ethical AI practices, real-world problem solving
+   - Format: Online, Offline, Weekend (Online), Hybrid
    - Rating: 4.5/5 stars
    - Link: https://sigmanixtech.com/courses/40
+   - Perfect for: Data aspirants, business analysts, professionals transitioning to data roles
 
-4. FULL STACK DEVELOPMENT
-   - Comprehensive full stack web development training
+4. DEVOPS WITH MULTI-CLOUD (3 MONTHS)
+   - Complete hands-on DevOps and Cloud Engineering training
+   - Topics: Linux, networking, Git, AWS, Azure, GCP, Infrastructure as Code with Terraform, Ansible, Kubernetes, CI/CD pipelines, monitoring, DevSecOps
+   - Includes: Real-world multi-cloud capstone project, production-ready applications
+   - Format: Online, Offline, Weekend (Online), Hybrid
+   - Rating: 4.6/5 stars
+   - Link: https://sigmanixtech.com/courses/34
+   - Perfect for: System administrators, backend developers, DevOps aspirants
 
-5. CLOUD COMPUTING (AWS)
-   - AWS hands-on labs and certification preparation
+5. PROMPT ENGINEERING (6 WEEKS)
+   - Master advanced prompt engineering for modern AI systems
+   - Topics: GPT-4o, Claude-3.5, Grok-4, DeepSeek-R1, prompt reasoning, structured output control
+   - Includes: LangChain, LangGraph, no-code tools, AI-driven automation
+   - Hands-on: ReAct patterns, Tree-of-Thoughts, multi-modal interaction
+   - Format: Online, Offline, Weekend (Online), Hybrid
+   - Link: https://sigmanixtech.com/courses/23
+   - Perfect for: AI developers, non-technical AI enthusiasts
 
-6. CYBERSECURITY
-   - Practical cybersecurity training with industry focus
+6. CYBERSECURITY & ETHICAL HACKING (12 WEEKS)
+   - Comprehensive cybersecurity and penetration testing program
+   - Topics: Network security, vulnerability assessment, penetration testing, web security, API security
+   - Tools: Burp Suite, Metasploit, Wireshark, Fortify, Nmap, MobSF, SIEM platforms
+   - Includes: Incident response, compliance frameworks (OWASP, GDPR, NIST), GenAI in Cyber Defense
+   - Format: Online, Offline, Weekend (Online), Hybrid
+   - Link: https://sigmanixtech.com/courses/24
+   - Career Path: Security Analyst, SOC Engineer, Penetration Tester
 
-7. DEVOPS WITH MULTI-CLOUD
-   - Multi-cloud approach with hands-on labs
-   - Enterprise-level deployment capabilities
+7. RPA WITH UIPATH (8 WEEKS)
+   - Master Robotic Process Automation and enterprise automation
+   - Topics: UiPath Studio, Orchestrator, REFramework, advanced automation development
+   - Includes: Enterprise-grade projects and real-world automation scenarios
+   - Format: Online, Offline, Weekend (Online), Hybrid
+   - Link: https://sigmanixtech.com/courses/7
+   - Perfect for: Process automation specialists, business analysts
 
-8. DATA SCIENCE & ANALYTICS
-   - Advanced data science techniques and real-world projects
+8. SALESFORCE DEVELOPER (3 MONTHS)
+   - Master Salesforce development from fundamentals to advanced
+   - Topics: Apex, SOQL, SOSL, Lightning Web Components (LWC), data modeling
+   - Includes: Integrations, asynchronous Apex, DevOps, CI/CD pipelines
+   - Certifications: Salesforce Platform Developer
+   - Format: Online, Offline, Weekend (Online), Hybrid
+   - Link: https://sigmanixtech.com/courses/21
+   - Career Path: Salesforce Developer, Application Developer
 
-9. RPA WITH UIPATH
-   - RPA automation from basics to advanced level
+9. AGENTIC AI (ADVANCED)
+   - Master advanced AI agent systems with multi-agent collaboration
+   - Topics: Multi-agent collaboration, real-world applications, end-to-end deployment
+   - Includes: Cutting-edge AI agent frameworks
+   - Format: Online, Offline, Weekend (Online), Hybrid
+   - Link: https://sigmanixtech.com/courses/2
+   - Perfect for: Experienced developers, AI researchers
 
-10. AI MASTERY
-    - Cutting-edge AI curriculum and practical projects
+10. SAP ABAP (3 MONTHS)
+    - Modern ABAP development on S/4HANA platform
+    - Topics: ABAP using Eclipse/VS Code, CDS, RAP, HANA pushdown techniques
+    - Includes: Data modeling, performance tuning, integrations, Fiori UI development
+    - Format: Online, Offline, Weekend (Online), Hybrid
+    - Link: https://sigmanixtech.com/courses/18
+    - Career Path: SAP ABAP Developer, Enterprise Developer
+
+OTHER POPULAR COURSES AVAILABLE:
+✓ Data Science With AI (8 weeks) - https://sigmanixtech.com/courses/12
+✓ DevOps with AWS (3 months) - https://sigmanixtech.com/courses/14
+✓ DevOps with Azure (3 months) - https://sigmanixtech.com/courses/15
+✓ UI/UX Design (3 months) - https://sigmanixtech.com/courses/16
+✓ Networking (3 months) - https://sigmanixtech.com/courses/17
+✓ Salesforce Administration (3 months) - https://sigmanixtech.com/courses/20
+✓ SAP FICO (3 months) - https://sigmanixtech.com/courses/19
+✓ Data Engineering with Databricks (12 weeks) - https://sigmanixtech.com/courses/10
+✓ Azure Data Engineering (12 weeks) - https://sigmanixtech.com/courses/11
+✓ Oracle Cloud Infrastructure (8 weeks) - https://sigmanixtech.com/courses/27
+✓ MuleSoft Certified Developer (12 weeks) - https://sigmanixtech.com/courses/31
+✓ ServiceNow Administrator (12 weeks) - https://sigmanixtech.com/courses/29
+✓ Digital Marketing (45 days) - https://sigmanixtech.com/courses/13
 
 WHY CHOOSE SIGMANIX TECH:
 ✓ Placement Support - Comprehensive job assistance including resume building, mock interviews, referrals

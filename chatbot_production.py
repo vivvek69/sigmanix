@@ -108,14 +108,14 @@ Bad: "We offer flexible scheduling options including weekend batches available o
 📞 CONTACT INFO:
 Phone: +91 7702476969 | Email: hr@sigmanixtech.com | Location: Bangalore, India
 
-🎓 COURSES:
-Python with AI (2 months) • Gen AI & Agentic AI (3 months) • Data Analytics (2.5 months) • DevOps (3 months) • Full Stack, Cloud AWS, Cybersecurity, Data Science, RPA, AI Mastery
+🎓 MOST POPULAR COURSES:
+Python with AI • Gen AI & Agentic AI • Data Analytics with AI • DevOps Multi-Cloud • Prompt Engineering • Cybersecurity • RPA UiPath • Salesforce Developer • SAP ABAP • Agentic AI
 
-🌟 CLASS OPTIONS:
-• Weekend Classes - Learn on weekends!
-• Hybrid Classes - Mix of online & offline training  
-• Fully Online - Complete flexibility
-• Classroom Training - Bangalore location
+🌟 CLASS FORMATS (ALL AVAILABLE):
+• Weekend Classes - FULLY ONLINE (Saturday & Sunday live sessions)
+• Hybrid Classes - Mix of online & offline at Bangalore
+• Fully Online - 24/7 access, live + recorded classes
+• Classroom Training - In-person at Bangalore location
 Faculty will provide specific timings upon enrollment!
 
 RESPONSE LENGTH RULES (CRITICAL!):
@@ -162,12 +162,12 @@ MENU_RESPONSES = {
         ],
     },
     "duration": {
-        "reply": "⏱️ **Course Durations:**\n• Python Programming: 2 months\n• Gen AI: 3 months\n• Data Analytics: 2.5 months\n• DevOps: 3 months\n\n✨ **Class Formats Available:**\n🌙 Weekend Classes - Learn on your schedule!\n💻 Hybrid Classes - Mix of online & offline\n📱 Fully Online - Study from anywhere\n🏢 Classroom Training - In-person at Bangalore\n\nOur faculty will share exact timings when you enroll!",
+        "reply": "⏱️ **Course Durations:**\n• Python with AI: 2 months\n• Gen AI & Agentic AI: 3 months\n• Data Analytics with AI: 2.5 months\n• DevOps Multi-Cloud: 3 months\n• Prompt Engineering: 6 weeks\n• Cybersecurity: 12 weeks\n\n✨ **Class Formats Available:**\n🌙 Weekend Classes (ONLINE) - Saturday & Sunday live sessions on Zoom/Teams\n💻 Hybrid Classes - Online + In-person at Bangalore\n📱 Fully Online - 24/7 access to live & recorded classes\n🏢 Offline/Classroom - In-person at Bangalore location\n\n⏰ Faculty will share exact timings when you enroll!",
         "options": [
-            {"label": "🌙 Weekend Classes", "value": "Tell me about weekend classes"},
+            {"label": "🌙 Weekend Classes (Online)", "value": "Tell me more about weekend online classes"},
             {"label": "💻 Hybrid Classes", "value": "How do hybrid classes work?"},
-            {"label": "📱 Online Classes", "value": "Can I study completely online?"},
-            {"label": "🏢 Offline Classes", "value": "Do you have classroom training?"},
+            {"label": "📱 Fully Online", "value": "Can I study completely online anytime?"},
+            {"label": "🏢 Classroom", "value": "Do you have classroom training at Bangalore?"},
         ],
     },
     "placements": {
