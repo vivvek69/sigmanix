@@ -119,6 +119,28 @@ def save_feedback(visitor_id, rating, comment=''):
     conn.commit()
     conn.close()
 
+def clear_user_data(visitor_id):
+    """Remove conversations and feedback for a single visitor and reset their counters.
+
+    This keeps the `students` record but resets `total_conversations` and
+    `average_rating` to defaults so the visitor appears fresh.
+    """
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    # Delete conversations and feedback for this visitor
+    cursor.execute('DELETE FROM conversations WHERE visitor_id = ?', (visitor_id,))
+    cursor.execute('DELETE FROM feedback WHERE visitor_id = ?', (visitor_id,))
+
+    # Reset student counters (if the student row exists)
+    cursor.execute(
+        'UPDATE students SET total_conversations = 0, average_rating = 0 WHERE visitor_id = ?',
+        (visitor_id,)
+    )
+
+    conn.commit()
+    conn.close()
+
 def get_student_analytics():
     """Get analytics for all students"""
     conn = get_connection()
