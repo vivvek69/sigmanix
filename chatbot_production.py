@@ -29,7 +29,7 @@ app = Flask(__name__)
 app.secret_key = os.getenv("SECRET_KEY", "sigmanix-secret-dev")
 
 # Production-ready CORS configuration
-allowed_origins = os.getenv("CORS_ORIGINS", "http://localhost:3000").split(",")
+allowed_origins = os.getenv("CORS_ORIGINS", "http://localhost:3000,http://localhost:5173").split(",")
 CORS(app, origins=allowed_origins, supports_credentials=True)
 
 # Logging setup with UTF-8
