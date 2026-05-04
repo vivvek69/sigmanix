@@ -30,7 +30,9 @@ app = Flask(__name__)
 app.secret_key = os.getenv("SECRET_KEY", "sigmanix-secret-dev")
 
 # Production-ready CORS configuration
-allowed_origins = os.getenv("CORS_ORIGINS", "http://localhost:3000").split(",")
+# Default includes common React dev origin (Vite) and older CRA default
+# Override by setting CORS_ORIGINS environment variable (comma-separated)
+allowed_origins = os.getenv("CORS_ORIGINS", "http://localhost:5173,http://localhost:3000").split(",")
 CORS(app, origins=allowed_origins, supports_credentials=True)
 
 # Logging setup with UTF-8
@@ -988,7 +990,7 @@ def feedback_endpoint():
 
 
 @app.post("/reset")
-def reset_endpoint():
+def reset_endpoint():   
     """Clear current visitor's conversations and feedback."""
     try:
         if "visitor_id" not in session:
