@@ -14,6 +14,7 @@ from database import (
     save_conversation,
     save_feedback,
     get_student_analytics,
+    clear_user_data,
 )
 from langchain_text_splitters import CharacterTextSplitter
 from langchain_community.vectorstores import FAISS
@@ -29,7 +30,9 @@ app = Flask(__name__)
 app.secret_key = os.getenv("SECRET_KEY", "sigmanix-secret-dev")
 
 # Production-ready CORS configuration
-allowed_origins = os.getenv("CORS_ORIGINS", "http://localhost:3000,http://localhost:5173").split(",")
+# Default includes common React dev origin (Vite) and older CRA default
+# Override by setting CORS_ORIGINS environment variable (comma-separated)
+allowed_origins = os.getenv("CORS_ORIGINS", "http://localhost:5173,http://localhost:3000").split(",")
 CORS(app, origins=allowed_origins, supports_credentials=True)
 
 # Logging setup with UTF-8
@@ -128,7 +131,7 @@ Faculty will provide specific timings upon enrollment!
 ❌ Specific discounts (REDIRECT: "Ask our admissions team about current offers!")
 ❌ Exact timings (REDIRECT: "Faculty shares timings after enrollment - depends on your preference")
 ❌ Unconfirmed job guarantees
-❌ Made-up student salaries
+❌ Made-up student salaries  
 
 ✅ INSTEAD DO THIS:
 - When asked about FEES: "That depends on your course and preference! Our team can make you an amazing offer at +91 7702476969 💰"
@@ -984,6 +987,21 @@ def feedback_endpoint():
     except Exception as e:
         logger.error(f"Feedback error: {str(e)}")
         return jsonify({"error": "Error saving feedback"}), 500
+
+
+@app.post("/reset")
+def reset_endpoint():   
+    """Clear current visitor's conversations and feedback."""
+    try:
+        if "visitor_id" not in session:
+            return jsonify({"error": "Session not found"}), 400
+
+        clear_user_data(session["visitor_id"])
+        logger.info(f"Cleared data for visitor: {session['visitor_id']}")
+        return jsonify({"success": True, "message": "User data cleared"})
+    except Exception as e:
+        logger.error(f"Reset error: {str(e)}")
+        return jsonify({"error": "Error clearing user data"}), 500
 
 @app.get("/api/health")
 def health_check():
