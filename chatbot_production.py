@@ -385,7 +385,111 @@ def get_quick_suggestions(query):
     return suggestions
 
 def quick_reply(query):
-    """Stub function - returns None to skip quick replies and use AI with follow-up questions"""
+    """Handle sensitive or high-confidence intents before LLM to reduce wrong replies."""
+    q = (query or "").strip().lower()
+    if not q:
+        return None
+
+    contact_line = "Call +91 7702476969"
+    maps_link = "https://maps.app.goo.gl/zCuvKLAZk7f4kprJ9?g_st=aw"
+
+    fee_words = [
+        "fee", "fees", "price", "cost", "payment", "pay", "discount", "offer",
+        "scholarship", "upfront", "emi", "installment", "group registration"
+    ]
+    timing_words = ["timing", "time", "schedule", "batch", "weekend", "weekday", "slot"]
+    location_words = ["location", "address", "where", "office", "map", "directions", "visit"]
+
+    if any(word in q for word in fee_words):
+        return {
+            "reply": (
+                "Great question! Fees, discounts, and payment plans are customized by course and batch. "
+                f"{contact_line} for the latest offer and exact payment options 😊"
+            ),
+            "options": [
+                {"label": "📞 Contact Team", "value": "How do I contact your team?"},
+                {"label": "📝 Registration", "value": "How do I register for a course?"},
+                {"label": "📚 Course Details", "value": "courses"},
+            ],
+        }
+
+    if any(word in q for word in timing_words):
+        return {
+            "reply": (
+                "We run weekend, hybrid, and fully online batches. Exact timings depend on your selected course and preferred batch, "
+                f"so please {contact_line} and the team will set the best schedule for you 👍"
+            ),
+            "options": [
+                {"label": "⏱️ Duration & Formats", "value": "duration"},
+                {"label": "📝 Registration", "value": "registration"},
+                {"label": "📞 Contact Team", "value": "How do I contact your team?"},
+            ],
+        }
+
+    if any(word in q for word in location_words):
+        return {
+            "reply": (
+                "We're in Kondapur, Serilingampally, Hyderabad, Telangana - 500084. "
+                f"Google Maps: {maps_link} and for help call +91 7702476969 📍"
+            ),
+            "options": [
+                {"label": "📍 Open Map", "value": "location"},
+                {"label": "📚 Courses", "value": "courses"},
+                {"label": "📞 Contact Team", "value": "How do I contact your team?"},
+            ],
+        }
+
+    if "refund" in q or "money back" in q:
+        return {
+            "reply": (
+                "Refunds are handled case-by-case by our admissions team. "
+                f"Please {contact_line} and they'll guide you with the exact policy for your enrollment."
+            ),
+            "options": [
+                {"label": "📞 Contact Team", "value": "How do I contact your team?"},
+                {"label": "📝 Registration", "value": "registration"},
+            ],
+        }
+
+    if "python" in q and "ai" in q:
+        return {
+            "reply": (
+                "Awesome choice! Python with AI is a 2-month course covering Python fundamentals, ML, computer vision, "
+                "hands-on projects, and deployment support. Want syllabus or placement details next?"
+            ),
+            "options": [
+                {"label": "📚 Full Course List", "value": "courses"},
+                {"label": "💼 Placement Support", "value": "placements"},
+                {"label": "📝 Start Registration", "value": "registration"},
+            ],
+        }
+
+    if "devops" in q:
+        return {
+            "reply": (
+                "Yes, our DevOps Multi-Cloud track is a 3-month job-focused course with hands-on cloud and deployment skills. "
+                "Want to check duration/formats or placement support?"
+            ),
+            "options": [
+                {"label": "⏱️ Duration & Formats", "value": "duration"},
+                {"label": "💼 Placement Support", "value": "placements"},
+                {"label": "📝 Registration", "value": "registration"},
+            ],
+        }
+
+    if "agentic ai" in q or "gen ai" in q:
+        return {
+            "reply": (
+                "Great pick! Gen AI & Agentic AI is a 3-month advanced track focused on practical AI workflows, tools, "
+                "and real-world project execution. Want the full topics breakdown?"
+            ),
+            "options": [
+                {"label": "📚 Course Details", "value": "courses"},
+                {"label": "⏱️ Duration", "value": "duration"},
+                {"label": "💼 Placements", "value": "placements"},
+            ],
+        }
+
     return None
 
 def generate_followup_questions(original_query, ai_response):
@@ -947,9 +1051,6 @@ def chat():
                 "options": quick.get("options", []),
             })
 
-        # Check if user has a query and offer suggestions (like Amazon/Airtel)
-        has_query = detect_query_intent(query)
-        
         # Check if user has a query and offer suggestions (like Amazon/Airtel)
         has_query = detect_query_intent(query)
         
