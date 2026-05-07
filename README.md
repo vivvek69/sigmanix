@@ -1,4 +1,5 @@
 # 🎓 Sigmanix Tech AI Chatbot
+Python:3.11.9 version of the chatbot, optimized for deployment.
 
 A production-ready AI-powered educational chatbot built with Flask, React, LangChain, and Groq LLM.
 

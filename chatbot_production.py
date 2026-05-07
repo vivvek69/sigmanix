@@ -32,9 +32,36 @@ app.secret_key = os.getenv("SECRET_KEY", "sigmanix-secret-dev")
 # Production-ready CORS configuration
 # Default includes common React dev origin (Vite) and older CRA default
 # Override by setting CORS_ORIGINS environment variable (comma-separated)
-allowed_origins = os.getenv("CORS_ORIGINS", "http://localhost:5173,http://localhost:3000").split(",")
-CORS(app, origins=allowed_origins, supports_credentials=True)
+allowed_origins = [o.strip() for o in os.getenv(
+    "CORS_ORIGINS",
+    "http://localhost:5173,http://localhost:3000,http://localhost:8000,https:https://sigmanixtech.com"
+).split(",") if o.strip()]
 
+CORS(
+    app,
+    resources={r"/*": {"origins": allowed_origins}},
+    supports_credentials=True,
+    methods=["GET", "POST", "OPTIONS"],
+    allow_headers=["Content-Type", "Authorization"]
+)
+
+
+@app.before_request
+def handle_preflight():
+    if request.method == "OPTIONS":
+        return '', 200
+
+
+@app.after_request
+def apply_dynamic_cors(response):
+    """Ensure CORS headers are echoed for allowed origins (supports credentials)."""
+    origin = request.headers.get("Origin")
+    if origin and origin in allowed_origins:
+        response.headers["Access-Control-Allow-Origin"] = origin
+        response.headers["Access-Control-Allow-Credentials"] = "true"
+        response.headers["Access-Control-Allow-Methods"] = "GET,POST,OPTIONS"
+        response.headers["Access-Control-Allow-Headers"] = "Content-Type,Authorization"
+    return response
 # Logging setup with UTF-8
 logging.basicConfig(
     level=logging.INFO,
@@ -83,16 +110,18 @@ except Exception as e:
     text_chunks = []
 
 # System prompt
-SYSTEM_PROMPT = """You're a friendly friend helping with Sigmanix Tech. KEEP IT CASUAL & HELPFUL! 😊
+SYSTEM_PROMPT = """You're a friendly friend helping with Sigmanix Tech Student to Guide them  . KEEP IT CASUAL & HELPFUL! 😊
 
 ⚡ COMMUNICATION STYLE - MOST IMPORTANT:
 - Speak like a REAL FRIEND chatting, not a bot
-- USE CASUAL LANGUAGE: "yep", "totally", "yeah", "cool", "awesome"
+- Be warm, enthusiastic, and quick in responses - Use contractions: "you're", "we've", "it's"
+- USE CASUAL LANGUAGE: "yep", "totally", "yeah", "cool", "awesome", but dont over do it
 - RESPONSE LENGTH: 2-3 short sentences MAX (add explanation, not big paragraphs!)
 - CONVERSATIONAL: Ask questions, sound natural, make them want the course
 - No fancy bullet points or formatting - just chat
 - Emojis are okay but not overused
 - Be warm but quick - like texting a buddy
+- Always end with a question to keep the convo going! "Which course are you interested in? I can tell you more about it! 😊"
 
 💬 RESPONSE STYLE (SHORT BUT WITH EXPLANATION):
 Good: "Oh awesome! Python with AI is a 2-month course where you'll learn AI, machine learning, and computer vision. You'll work on real projects and get job-ready skills that companies actually want right now! Perfect for breaking into tech 🚀"
@@ -112,18 +141,24 @@ Better: "Cool! Python with AI is a 2-month program covering AI, ML, and computer
 4. For FEES, DISCOUNTS, TIMINGS → Say: "That's something our team can customize for you! Contact them at +91 7702476969 - they're super helpful 😊"
 5. Be genuine, persuasive, and quick
 6. Guide them as a friend, not a sales bot
+7.If they ask about location, always send the Google Maps link: https://maps.app.goo.gl/zCuvKLAZk7f4kprJ9?g_st=aw and contact info (+91 7702476969).
+8. If they ask about courses, placements, registration - give them the right info and then ask "Which one are you interested in? I can tell you more about it! 😊"
+9. If they ask about fees, discounts, timings - redirect to contact info with a friendly message like "Our team can give you a custom offer based on your needs! They're super helpful - just call +91 7702476969 or visit: https://maps.app.goo.gl/zCuvKLAZk7f4kprJ9?g_st=aw 😊"
+10. Always include the clickable Google Maps link when you talk about location or visiting the office.
 
 📞 CONTACT INFO:
-Phone: +91 7702476969 | Email: hr@sigmanixtech.com | Location: Bangalore, India
+Phone: +91 7702476969 | Email: hr@sigmanixtech.com
+📍 Location: Kondapur, Serilingampally, Hyderabad, Telangana - 500084
+🗺️ Google Maps: https://maps.app.goo.gl/zCuvKLAZk7f4kprJ9?g_st=aw (Click to view location)
 
 🎓 MOST POPULAR COURSES:
-Python with AI • Gen AI & Agentic AI • Data Analytics with AI • DevOps Multi-Cloud • Prompt Engineering • Cybersecurity • RPA UiPath • Salesforce Developer • SAP ABAP • Agentic AI
+Python with AI • Gen AI & Agentic AI • Data Analytics with AI • DevOps Multi-Cloud • Prompt Engineering • Cybersecurity • Agentic AI
 
 🌟 CLASS FORMATS (ALL AVAILABLE):
 • Weekend Classes - FULLY ONLINE (Saturday & Sunday live sessions)
-• Hybrid Classes - Mix of online & offline at Bangalore
+• Hybrid Classes - Mix of online & offline at Hyderabad
 • Fully Online - 24/7 access, live + recorded classes
-• Classroom Training - In-person at Bangalore location
+• Classroom Training - In-person at Hyderabad location
 Faculty will provide specific timings upon enrollment!
 
 ⚠️ CONFIDENTIAL INFO - NEVER SHARE DIRECTLY:
@@ -153,7 +188,9 @@ WHEN COMPARING WITH OTHER INSTITUTES:
 
 💡 REMEMBER:
 Make responses SHORT but PACKED with value. Sound like a friend who genuinely wants to help them succeed - not a bot. 
-Be warm, persuasive, honest, and quick. That's it! 🎯"""
+Be warm, persuasive, honest, and quick. That's it! 
+guide the student like a friend and make tem to join the sigmanix at last is main goal  🎯
+Make sure to always end with a question to keep the conversation going! If you don't know something, be honest and say "Hmm, let me find out for you!" and then guide them to check the website or ask about courses/placements/registration."""
 
 # Menu responses
 MENU_RESPONSES = {
@@ -167,12 +204,12 @@ MENU_RESPONSES = {
         ],
     },
     "duration": {
-        "reply": "⏱️ **Course Durations & Formats:**\n• Python with AI: 2 months\n• Gen AI & Agentic AI: 3 months\n• Data Analytics with AI: 2.5 months\n• DevOps Multi-Cloud: 3 months\n• Prompt Engineering: 6 weeks\n• Cybersecurity: 12 weeks\n\n✨ **Class Formats Available:**\n🌙 Weekend Classes (ONLINE) - Saturday & Sunday live sessions\n💻 Hybrid Classes - Online + In-person at Bangalore\n📱 Fully Online - 24/7 access to live & recorded classes\n🏢 Offline/Classroom - In-person at Bangalore location\n\n⏰ For specific timings & batch schedules, our team will customize based on YOUR preference! Call +91 7702476969 😊",
+        "reply": "⏱️ **Course Durations & Formats:**\n• Python with AI: 2 months\n• Gen AI & Agentic AI: 3 months\n• Data Analytics with AI: 2.5 months\n• DevOps Multi-Cloud: 3 months\n• Prompt Engineering: 6 weeks\n• Cybersecurity: 12 weeks\n\n✨ **Class Formats Available:**\n🌙 Weekend Classes (ONLINE) - Saturday & Sunday live sessions\n💻 Hybrid Classes - Online + In-person at Hyderabad\n📱 Fully Online - 24/7 access to live & recorded classes\n🏢 Offline/Classroom - In-person at Hyderabad location\n\n⏰ For specific timings & batch schedules, our team will customize based on YOUR preference! Call +91 7702476969 😊",
         "options": [
             {"label": "🌙 Weekend Classes (Online)", "value": "Tell me more about weekend online classes"},
             {"label": "💻 Hybrid Classes", "value": "How do hybrid classes work?"},
             {"label": "📱 Fully Online", "value": "Can I study completely online anytime?"},
-            {"label": "🏢 Classroom", "value": "Do you have classroom training at Bangalore?"},
+            {"label": "🏢 Classroom", "value": "Do you have classroom training at Hyderabad ?"},
         ],
     },
     "placements": {
@@ -289,7 +326,7 @@ Generate 3 engaging follow-up questions (max 10 words each) that naturally conti
 1. 
 2. 
 3. 
-
+   
 Format as simple questions without numbering."""
         
         response_text = groq_llm.invoke(prompt).content.strip()
@@ -866,11 +903,14 @@ def index():
 
 # ============ CHAT ENDPOINT (for UI & React) ============
 
-@app.post("/chat")
+@app.route("/chat", methods=["POST", "OPTIONS"])
 @rate_limit(max_requests=20, window=60)
-def chat_endpoint():
+def chat():
     """Main chat endpoint - works with UI and React."""
     try:
+        if request.method == "OPTIONS":
+            return ("", 200)
+
         payload = request.get_json(silent=True) or {}
         query = (payload.get("message") or "").strip()
         selected_menu = payload.get("menu_selected")
@@ -941,7 +981,7 @@ FACTS YOU CAN USE:
 
 STUDENT ASKS: {query}
 
-REPLY LIKE YOU'RE TEXTING A BUDDY - casual, short, warm! Use "yeah", "cool", "awesome", emojis okay but not too many. Be honest if unsure."""
+REPLY LIKE YOU'RE TEXTING A BUDDY - casual, short, warm! Use "yeah", "cool", "awesome", emojis okay but not too many. Be honest if unsure. Guide them to like a friend who's been there. Always end with a question to keep the convo going! If you don't know, say "Hmm, let me find out for you!" and suggest they check the website or ask about courses/placements/registration. Avoid formal language or long explanations.Guide them to ask about courses, placements, or registration if they seem unsure. Be concise and helpful!"""
                 
                 # Call LLM directly
                 response = groq_llm.invoke(prompt)
