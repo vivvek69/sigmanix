@@ -88,18 +88,13 @@ FEATURED COURSES (MOST POPULAR):
    - Perfect for: Experienced developers, AI researchers
 
 
-OTHER POPULAR COURSES AVAILABLE:
+OTHER AI-BASED COURSES AVAILABLE:
 ✓ Data Science With AI (8 weeks) - https://sigmanixtech.com/courses/12
-✓ DevOps with AWS (3 months) - https://sigmanixtech.com/courses/14
-✓ DevOps with Azure (3 months) - https://sigmanixtech.com/courses/15
-✓ UI/UX Design (3 months) - https://sigmanixtech.com/courses/16
-✓ Networking (3 months) - https://sigmanixtech.com/courses/17
-✓ Salesforce Administration (3 months) - https://sigmanixtech.com/courses/20
-
-✓ Data Engineering with Databricks (12 weeks) - https://sigmanixtech.com/courses/10
-✓ Azure Data Engineering (12 weeks) - https://sigmanixtech.com/courses/11
 
 
+
+OUR FOCUS: PURE AI-BASED TRAINING
+We specialize exclusively in AI-driven technical education. All our courses focus on artificial intelligence, machine learning, deep learning, generative AI, and advanced AI technologies to prepare you for the future of tech.
 
 WHY CHOOSE SIGMANIX TECH:
 ✓ Placement Support - Comprehensive job assistance including resume building, mock interviews, referrals

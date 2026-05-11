@@ -82,7 +82,7 @@ if not groq_api_key:
     logger.error("❌ GROQ_API_KEY not found in environment variables")
 else:
     groq_llm = ChatGroq(
-        temperature=0.7,
+        temperature=0.2,
         groq_api_key=groq_api_key,
         model_name="llama-3.1-8b-instant",
     )
@@ -110,110 +110,53 @@ except Exception as e:
     text_chunks = []
 
 # System prompt
-SYSTEM_PROMPT = """You're a friendly friend helping with Sigmanix Tech Student to Guide them  . KEEP IT CASUAL & HELPFUL! 😊
+SYSTEM_PROMPT = """You are a professional, concise chatbot for Sigmanix Tech.
 
-⚡ COMMUNICATION STYLE - MOST IMPORTANT:
-- Speak like a REAL FRIEND chatting, not a bot
-- Be warm, enthusiastic, and quick in responses - Use contractions: "you're", "we've", "it's"
-- USE CASUAL LANGUAGE: "yep", "totally", "yeah", "cool", "awesome", but dont over do it
-- RESPONSE LENGTH: 2-3 short sentences MAX (add explanation, not big paragraphs!)
-- CONVERSATIONAL: Ask questions, sound natural, make them want the course
-- No fancy bullet points or formatting - just chat
-- Emojis are okay but not overused
-- Be warm but quick - like texting a buddy
-- Always end with a question to keep the convo going! "Which course are you interested in? I can tell you more about it! 😊"
+Tone and style:
+- Be polite, clear, and helpful.
+- Keep a friendly but professional tone.
+- Avoid slang, excessive emojis, hype, or overly casual wording.
+- Use 2 to 3 short sentences.
+- Do not write long paragraphs or lists unless the user asks for them.
 
-💬 RESPONSE STYLE (SHORT BUT WITH EXPLANATION):
-Good: "Oh awesome! Python with AI is a 2-month course where you'll learn AI, machine learning, and computer vision. You'll work on real projects and get job-ready skills that companies actually want right now! Perfect for breaking into tech 🚀"
-Better: "Cool! Python with AI is a 2-month program covering AI, ML, and computer vision. You'll build real projects, get mentored by experts, and have companies reaching out to you. Honestly, it's the fastest way to land a great job in AI! 🚀"
+Accuracy rules:
+- Use only the facts provided in the retrieved context.
+- Do not invent fees, discounts, placement numbers, salaries, or timings.
+- If the answer is not in the context, say you are not sure and direct the user to the contact details.
 
-💼 PERSUASION TACTICS:
-- Highlight REAL BENEFITS: job-ready, hands-on, expert mentors, company referrals
-- Make them see VALUE: "You'll learn X, which gets you Y job role with Z salary potential"
-- Create URGENCY: "People are getting hired super fast from this batch"
-- Show PROOF: "Our students are getting placed in top companies"
-- Make it RELATABLE: "Just like you, most students come with no AI experience and land great jobs"
+Contact details:
+- Phone: +91 7702476969
+- Email: hr@sigmanixtech.com
+- Location: Kondapur, Serilingampally, Hyderabad, Telangana - 500084
+- Google Maps: https://maps.app.goo.gl/zCuvKLAZk7f4kprJ9?g_st=aw
 
-🎯 YOUR RESPONSIBILITIES:
-1. Answer ALL questions honestly
-2. Help them pick the RIGHT course for THEIR goals
-3. Share REAL info only, no making stuff up
-4. For FEES, DISCOUNTS, TIMINGS → Say: "That's something our team can customize for you! Contact them at +91 7702476969 - they're super helpful 😊"
-5. Be genuine, persuasive, and quick
-6. Guide them as a friend, not a sales bot
-7.If they ask about location, always send the Google Maps link: https://maps.app.goo.gl/zCuvKLAZk7f4kprJ9?g_st=aw and contact info (+91 7702476969).
-8. If they ask about courses, placements, registration - give them the right info and then ask "Which one are you interested in? I can tell you more about it! 😊"
-9. If they ask about fees, discounts, timings - redirect to contact info with a friendly message like "Our team can give you a custom offer based on your needs! They're super helpful - just call +91 7702476969 or visit: https://maps.app.goo.gl/zCuvKLAZk7f4kprJ9?g_st=aw 😊"
-10. Always include the clickable Google Maps link when you talk about location or visiting the office.
-
-📞 CONTACT INFO:
-Phone: +91 7702476969 | Email: hr@sigmanixtech.com
-📍 Location: Kondapur, Serilingampally, Hyderabad, Telangana - 500084
-🗺️ Google Maps: https://maps.app.goo.gl/zCuvKLAZk7f4kprJ9?g_st=aw (Click to view location)
-
-🎓 MOST POPULAR COURSES:
-Python with AI • Gen AI & Agentic AI • Data Analytics with AI • DevOps Multi-Cloud • Prompt Engineering • Cybersecurity • Agentic AI
-
-🌟 CLASS FORMATS (ALL AVAILABLE):
-• Weekend Classes - FULLY ONLINE (Saturday & Sunday live sessions)
-• Hybrid Classes - Mix of online & offline at Hyderabad
-• Fully Online - 24/7 access, live + recorded classes
-• Classroom Training - In-person at Hyderabad location
-Faculty will provide specific timings upon enrollment!
-
-⚠️ CONFIDENTIAL INFO - NEVER SHARE DIRECTLY:
-❌ Specific fees/pricing (REDIRECT: "Our team customizes packages - call +91 7702476969")
-❌ Specific discounts (REDIRECT: "Ask our admissions team about current offers!")
-❌ Exact timings (REDIRECT: "Faculty shares timings after enrollment - depends on your preference")
-❌ Unconfirmed job guarantees
-❌ Made-up student salaries  
-
-✅ INSTEAD DO THIS:
-- When asked about FEES: "That depends on your course and preference! Our team can make you an amazing offer at +91 7702476969 💰"
-- When asked about DISCOUNTS: "We have different offers for early birds, referrals, and students - contact our team to see what you qualify for!"
-- When asked about TIMINGS: "You get to choose your batch timing! Once you apply, our team works with you to pick the perfect schedule"
-
-RESPONSE LENGTH RULES:
-- NEVER write long paragraphs (max 3 short sentences)
-- NEVER be formal or robotic
-- DO make explanations helpful but short
-- DO sound like you're texting a friend
-- DO use contractions: "it's", "you're", "we've"
-- DO add WHY they should care (value proposition)
-
-WHEN COMPARING WITH OTHER INSTITUTES:
-- Say: "It's smart that you're exploring! Here's what makes us different..."
-- Highlight: job-ready focus, direct company referrals, hands-on projects, expert mentors, fast learning, career support
-- Never bad-mouth others
-
-💡 REMEMBER:
-Make responses SHORT but PACKED with value. Sound like a friend who genuinely wants to help them succeed - not a bot. 
-Be warm, persuasive, honest, and quick. That's it! 
-guide the student like a friend and make tem to join the sigmanix at last is main goal  🎯
-Make sure to always end with a question to keep the conversation going! If you don't know something, be honest and say "Hmm, let me find out for you!" and then guide them to check the website or ask about courses/placements/registration."""
+Response goal:
+- Answer the user's question directly.
+- If helpful, mention the most relevant course, format, or next step.
+- End with a simple question only when it fits naturally."""
 
 # Menu responses
 MENU_RESPONSES = {
     "courses": {
-        "reply": "📚 **Available Courses:**\n🎓 Python with AI (2 months) - Break into AI with hands-on projects\n🎓 Gen AI & Agentic AI (3 months) - Learn the future of automation\n🎓 Data Analytics with AI (2.5 months) - Turn data into career opportunities\n🎓 DevOps Multi-Cloud (3 months) - Get hired as a DevOps engineer\n🎓 Cybersecurity • Prompt Engineering • RPA • Salesforce & more!\n\nWhich one excites you? 🚀",
+        "reply": "We offer AI-focused courses: Python with AI, Gen AI & Agentic AI, Data Analytics with AI, Prompt Engineering, Cybersecurity & Ethical Hacking, Agentic AI (Advanced), and Data Science with AI. Which course interests you?",
         "options": [
             {"label": "💻 Python & AI", "value": "Tell me about Python with AI course"},
             {"label": "🤖 Gen AI & Agents", "value": "What's in the Gen AI course?"},
             {"label": "📊 Data Analytics", "value": "Tell me about Data Analytics course"},
-            {"label": "🌐 DevOps Multi-Cloud", "value": "What will I learn in DevOps?"},
+            {"label": "🔐 Cybersecurity", "value": "Tell me about Cybersecurity course"},
         ],
     },
     "duration": {
-        "reply": "⏱️ **Course Durations & Formats:**\n• Python with AI: 2 months\n• Gen AI & Agentic AI: 3 months\n• Data Analytics with AI: 2.5 months\n• DevOps Multi-Cloud: 3 months\n• Prompt Engineering: 6 weeks\n• Cybersecurity: 12 weeks\n\n✨ **Class Formats Available:**\n🌙 Weekend Classes (ONLINE) - Saturday & Sunday live sessions\n💻 Hybrid Classes - Online + In-person at Hyderabad\n📱 Fully Online - 24/7 access to live & recorded classes\n🏢 Offline/Classroom - In-person at Hyderabad location\n\n⏰ For specific timings & batch schedules, our team will customize based on YOUR preference! Call +91 7702476969 😊",
+        "reply": "Course durations: Python with AI - 2 months, Gen AI & Agentic AI - 3 months, Data Analytics with AI - 2.5 months, Prompt Engineering - 6 weeks, Cybersecurity - 12 weeks, Agentic AI (Advanced) - flexible, Data Science with AI - 8 weeks. All courses are available in weekend, hybrid, fully online, and classroom formats. For exact batch timing, please contact +91 7702476969.",
         "options": [
             {"label": "🌙 Weekend Classes (Online)", "value": "Tell me more about weekend online classes"},
             {"label": "💻 Hybrid Classes", "value": "How do hybrid classes work?"},
             {"label": "📱 Fully Online", "value": "Can I study completely online anytime?"},
-            {"label": "🏢 Classroom", "value": "Do you have classroom training at Hyderabad ?"},
+            {"label": "🏢 Classroom", "value": "Do you have classroom training at Hyderabad?"},
         ],
     },
     "placements": {
-        "reply": "💼 **Here's What We Do For Your Career:**\n✓ Job-Ready Training (you'll learn what companies actually want)\n✓ Real Project Experience (not just theory)\n✓ Direct Company Referrals (we know top companies)\n✓ Interview Prep & Mock Interviews (practice with pros)\n✓ Resume Review & Career Guidance (get noticed by recruiters)\n✓ 1:1 Mentorship (guidance from industry experts)\n\nOur students are getting placed in amazing companies! Want success stories? 🎯",
+        "reply": "We provide job-ready training, real project experience, company referrals, interview preparation, resume support, and 1:1 mentorship. If you want, I can share the support offered for a specific course.",
         "options": [
             {"label": "📈 Success Stories", "value": "What are your placement rates?"},
             {"label": "🏢 Partner Companies", "value": "Which companies hire from you?"},
@@ -222,7 +165,7 @@ MENU_RESPONSES = {
         ],
     },
     "registration": {
-        "reply": "📝 **Getting Started is SUPER Easy:**\n1️⃣ Apply on our website or fill a quick form\n2️⃣ Chat with our admissions team (they're awesome!)\n3️⃣ Pick your course, batch & timing\n4️⃣ Get course access within 24 hours - start learning! 🚀\n\n💥 Don't wait - batches fill up fast & new ones start soon!",
+        "reply": "To register, submit the application form, speak with the admissions team, choose your course and batch, and then receive access after enrollment is confirmed. If you need help, contact +91 7702476969.",
         "options": [
             {"label": "📞 Contact Us", "value": "How do I contact your team?"},
             {"label": "❓ Requirements", "value": "What do I need to apply?"},
@@ -231,7 +174,7 @@ MENU_RESPONSES = {
         ],
     },
     "menu": {
-        "reply": "Welcome to Sigmanix Tech! 👋\n\nHow can I help you today? Choose from below:",
+        "reply": "Welcome to Sigmanix Tech. How can I help you today? Choose an option below:",
         "options": [
             {"label": "📚 Courses", "value": "courses"},
             {"label": "⏱️ Duration & Timeline", "value": "duration"},
@@ -399,12 +342,13 @@ def quick_reply(query):
     ]
     timing_words = ["timing", "time", "schedule", "batch", "weekend", "weekday", "slot"]
     location_words = ["location", "address", "where", "office", "map", "directions", "visit"]
+    bot_words = ["chatbot", "bot", "ai", "your responsibility", "your rules", "rules for ai", "responsibility of chatbot", "what can you do"]
 
     if any(word in q for word in fee_words):
         return {
             "reply": (
-                "Great question! Fees, discounts, and payment plans are customized by course and batch. "
-                f"{contact_line} for the latest offer and exact payment options 😊"
+                "Fees, discounts, and payment plans depend on the course and batch. "
+                f"Please {contact_line} for the latest offer and exact payment options."
             ),
             "options": [
                 {"label": "📞 Contact Team", "value": "How do I contact your team?"},
@@ -416,8 +360,8 @@ def quick_reply(query):
     if any(word in q for word in timing_words):
         return {
             "reply": (
-                "We run weekend, hybrid, and fully online batches. Exact timings depend on your selected course and preferred batch, "
-                f"so please {contact_line} and the team will set the best schedule for you 👍"
+                "We offer weekend, hybrid, and fully online batches. Exact timings depend on the course and batch you choose, "
+                f"so please {contact_line} for the current schedule."
             ),
             "options": [
                 {"label": "⏱️ Duration & Formats", "value": "duration"},
@@ -429,8 +373,8 @@ def quick_reply(query):
     if any(word in q for word in location_words):
         return {
             "reply": (
-                "We're in Kondapur, Serilingampally, Hyderabad, Telangana - 500084. "
-                f"Google Maps: {maps_link} and for help call +91 7702476969 📍"
+                "Our location is Kondapur, Serilingampally, Hyderabad, Telangana - 500084. "
+                f"Google Maps: {maps_link}. For help, call +91 7702476969."
             ),
             "options": [
                 {"label": "📍 Open Map", "value": "location"},
@@ -442,8 +386,8 @@ def quick_reply(query):
     if "refund" in q or "money back" in q:
         return {
             "reply": (
-                "Refunds are handled case-by-case by our admissions team. "
-                f"Please {contact_line} and they'll guide you with the exact policy for your enrollment."
+                "Refund requests are reviewed by the admissions team on a case-by-case basis. "
+                f"Please {contact_line} for the exact policy related to your enrollment."
             ),
             "options": [
                 {"label": "📞 Contact Team", "value": "How do I contact your team?"},
@@ -454,8 +398,8 @@ def quick_reply(query):
     if "python" in q and "ai" in q:
         return {
             "reply": (
-                "Awesome choice! Python with AI is a 2-month course covering Python fundamentals, ML, computer vision, "
-                "hands-on projects, and deployment support. Want syllabus or placement details next?"
+                "Python with AI is a 2-month course covering Python fundamentals, machine learning, computer vision, hands-on projects, and deployment support. "
+                "Would you like the syllabus or placement details?"
             ),
             "options": [
                 {"label": "📚 Full Course List", "value": "courses"},
@@ -464,24 +408,11 @@ def quick_reply(query):
             ],
         }
 
-    if "devops" in q:
-        return {
-            "reply": (
-                "Yes, our DevOps Multi-Cloud track is a 3-month job-focused course with hands-on cloud and deployment skills. "
-                "Want to check duration/formats or placement support?"
-            ),
-            "options": [
-                {"label": "⏱️ Duration & Formats", "value": "duration"},
-                {"label": "💼 Placement Support", "value": "placements"},
-                {"label": "📝 Registration", "value": "registration"},
-            ],
-        }
-
     if "agentic ai" in q or "gen ai" in q:
         return {
             "reply": (
-                "Great pick! Gen AI & Agentic AI is a 3-month advanced track focused on practical AI workflows, tools, "
-                "and real-world project execution. Want the full topics breakdown?"
+                "Gen AI & Agentic AI is a 3-month advanced course focused on practical AI workflows, tools, and real-world project work. "
+                "Would you like the full topics breakdown?"
             ),
             "options": [
                 {"label": "📚 Course Details", "value": "courses"},
@@ -572,6 +503,124 @@ def index():
         .chat-area::-webkit-scrollbar-track { background: transparent; }
         .chat-area::-webkit-scrollbar-thumb { background: #ddd; border-radius: 3px; }
         .chat-area::-webkit-scrollbar-thumb:hover { background: #999; }
+
+        /* Feedback Modal */
+        .modal-backdrop {
+            position: fixed;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.65);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            padding: 20px;
+        }
+        .modal-backdrop.open { display: flex; }
+        .feedback-modal {
+            width: 100%;
+            max-width: 420px;
+            background: white;
+            border-radius: 18px;
+            box-shadow: 0 24px 80px rgba(0, 0, 0, 0.35);
+            overflow: hidden;
+            animation: modalPop 0.22s ease-out;
+        }
+        @keyframes modalPop {
+            from { opacity: 0; transform: translateY(14px) scale(0.98); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        .feedback-modal-header {
+            padding: 18px 20px 10px 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        .feedback-modal-header h2 {
+            font-size: 18px;
+            margin: 0 0 6px 0;
+        }
+        .feedback-modal-header p {
+            font-size: 13px;
+            margin: 0;
+            opacity: 0.92;
+            line-height: 1.5;
+        }
+        .feedback-modal-body { padding: 18px 20px 20px 20px; }
+        .star-row {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            margin-bottom: 14px;
+        }
+        .star-btn {
+            width: 46px;
+            height: 46px;
+            border: 1px solid #d8e0ff;
+            background: #f8faff;
+            border-radius: 12px;
+            font-size: 24px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .star-btn:hover,
+        .star-btn.active {
+            transform: translateY(-2px) scale(1.04);
+            background: #fff7d6;
+            border-color: #f5c542;
+        }
+        .feedback-rating-label {
+            text-align: center;
+            font-size: 13px;
+            color: #4b5563;
+            margin-bottom: 14px;
+            min-height: 20px;
+        }
+        .feedback-modal textarea {
+            width: 100%;
+            min-height: 96px;
+            resize: vertical;
+            border: 2px solid #e0e7ff;
+            border-radius: 12px;
+            padding: 12px 14px;
+            font: inherit;
+            font-size: 13px;
+            outline: none;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+        .feedback-modal textarea:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.12);
+        }
+        .feedback-modal-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 14px;
+        }
+        .feedback-modal-actions button {
+            flex: 1;
+            height: 44px;
+            border: none;
+            border-radius: 10px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .feedback-cancel-btn {
+            background: #edf2ff;
+            color: #344054;
+        }
+        .feedback-submit-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        .feedback-modal-actions button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 8px 18px rgba(102, 126, 234, 0.18);
+        }
+        .feedback-link {
+            color: #2563eb;
+            text-decoration: underline;
+            word-break: break-word;
+        }
         
         /* Loading Indicator */
         .typing-indicator { display: flex; gap: 4px; padding: 12px 14px; }
@@ -720,8 +769,40 @@ def index():
             <button onclick="sendMessage()" title="Send">↑</button>
         </div>
     </div>
+    <div class="modal-backdrop" id="feedbackModal" aria-hidden="true">
+        <div class="feedback-modal" role="dialog" aria-modal="true" aria-labelledby="feedbackTitle">
+            <div class="feedback-modal-header">
+                <h2 id="feedbackTitle">Rate your experience</h2>
+                <p>Tap a star like a Play Store review, then add an optional comment.</p>
+            </div>
+            <div class="feedback-modal-body">
+                <div class="star-row" id="starRow" aria-label="Star rating">
+                    <button class="star-btn" type="button" data-rating="1" aria-label="1 star">☆</button>
+                    <button class="star-btn" type="button" data-rating="2" aria-label="2 stars">☆</button>
+                    <button class="star-btn" type="button" data-rating="3" aria-label="3 stars">☆</button>
+                    <button class="star-btn" type="button" data-rating="4" aria-label="4 stars">☆</button>
+                    <button class="star-btn" type="button" data-rating="5" aria-label="5 stars">☆</button>
+                </div>
+                <div class="feedback-rating-label" id="feedbackRatingLabel">Select a rating</div>
+                <textarea id="feedbackComment" placeholder="Write a short comment (optional)"></textarea>
+                <div class="feedback-modal-actions">
+                    <button class="feedback-cancel-btn" type="button" onclick="closeFeedbackModal()">Cancel</button>
+                    <button class="feedback-submit-btn" type="button" onclick="submitFeedbackRating()">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <script>
         let isLoading = false;
+        let selectedFeedbackRating = 0;
+
+        const feedbackRatingCopy = {
+            1: 'Very poor',
+            2: 'Poor',
+            3: 'Okay',
+            4: 'Good',
+            5: 'Excellent'
+        };
         
         function setLoading(state) {
             isLoading = state;
@@ -749,6 +830,22 @@ def index():
             const indicator = document.getElementById('typingIndicator');
             if (indicator) indicator.remove();
         }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function linkifyText(text) {
+            const escaped = escapeHtml(text);
+            return escaped.replace(/(https?:\/\/[^\s<]+)/g, '<a href="$1" target="_blank" rel="noopener noreferrer" class="feedback-link">$1</a>');
+        }
+
+        function renderLinkifiedContent(element, message) {
+            const html = linkifyText(message).replace(/\n/g, '<br>');
+            element.innerHTML = html;
+        }
         
         // Animated typing effect for bot messages
         async function typeMessage(message, element) {
@@ -770,6 +867,68 @@ def index():
                 type();
             });
         }
+
+        function openFeedbackModal() {
+            selectedFeedbackRating = 0;
+            document.getElementById('feedbackComment').value = '';
+            document.getElementById('feedbackRatingLabel').textContent = 'Select a rating';
+            updateFeedbackStars(0);
+            document.getElementById('feedbackModal').classList.add('open');
+            document.getElementById('feedbackModal').setAttribute('aria-hidden', 'false');
+        }
+
+        function closeFeedbackModal() {
+            document.getElementById('feedbackModal').classList.remove('open');
+            document.getElementById('feedbackModal').setAttribute('aria-hidden', 'true');
+        }
+
+        function updateFeedbackStars(rating) {
+            const stars = document.querySelectorAll('.star-btn');
+            stars.forEach((btn) => {
+                const value = parseInt(btn.dataset.rating, 10);
+                const active = value <= rating;
+                btn.classList.toggle('active', active);
+                btn.textContent = active ? '★' : '☆';
+            });
+            const label = document.getElementById('feedbackRatingLabel');
+            label.textContent = rating ? `${rating}/5 - ${feedbackRatingCopy[rating]}` : 'Select a rating';
+        }
+
+        async function submitFeedbackRating() {
+            if (!selectedFeedbackRating) {
+                displayMessage('Please choose a star rating before submitting.', 'bot');
+                return;
+            }
+
+            const comment = document.getElementById('feedbackComment').value.trim();
+            setLoading(true);
+            try {
+                await fetch('/feedback', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ rating: selectedFeedbackRating, comment })
+                });
+                closeFeedbackModal();
+                displayMessage(`⭐ Thanks for your ${selectedFeedbackRating}/5 review!`, 'bot');
+            } catch (error) {
+                displayMessage('❌ Error submitting feedback. Please try again.', 'bot');
+            } finally {
+                setLoading(false);
+            }
+        }
+
+        document.addEventListener('click', (event) => {
+            const starButton = event.target.closest('.star-btn');
+            if (!starButton) return;
+            selectedFeedbackRating = parseInt(starButton.dataset.rating, 10);
+            updateFeedbackStars(selectedFeedbackRating);
+        });
+
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape') {
+                closeFeedbackModal();
+            }
+        });
         
         async function sendMessage() {
             const input = document.getElementById('userInput');
@@ -812,23 +971,7 @@ def index():
             if (isLoading) return;
             
             if (menu === 'feedback') {
-                const rating = prompt('Rate your experience (1-5):');
-                if (rating && rating >= 1 && rating <= 5) {
-                    const comment = prompt('Any comments? (optional)');
-                    setLoading(true);
-                    try {
-                        await fetch('/feedback', { 
-                            method: 'POST', 
-                            headers: { 'Content-Type': 'application/json' }, 
-                            body: JSON.stringify({ rating: parseInt(rating), comment: comment || '' }) 
-                        });
-                        displayMessage(`⭐ Thank you for rating ${rating}/5!`, 'bot');
-                    } catch (error) {
-                        displayMessage('❌ Error submitting feedback. Please try again.', 'bot');
-                    } finally {
-                        setLoading(false);
-                    }
-                }
+                openFeedbackModal();
                 return;
             }
             
@@ -883,6 +1026,7 @@ def index():
             
             // Animate the typing
             await typeMessage(message, msgDiv);
+            renderLinkifiedContent(msgDiv, message);
             
             // Scroll to bottom after typing is done
             chatArea.scrollTop = chatArea.scrollHeight;
@@ -1075,14 +1219,14 @@ def chat():
             else:
                 # Combine retrieved documents as context
                 context = "\n".join([doc.page_content for doc in query_result])
-                prompt = f"""You're a friendly guide for Sigmanix Tech. Answer BRIEFLY like texting a friend - keep it to 1-2 sentences MAX!
+                prompt = f"""{SYSTEM_PROMPT}
 
-FACTS YOU CAN USE:
+Retrieved context:
 {context}
 
-STUDENT ASKS: {query}
+User question: {query}
 
-REPLY LIKE YOU'RE TEXTING A BUDDY - casual, short, warm! Use "yeah", "cool", "awesome", emojis okay but not too many. Be honest if unsure. Guide them to like a friend who's been there. Always end with a question to keep the convo going! If you don't know, say "Hmm, let me find out for you!" and suggest they check the website or ask about courses/placements/registration. Avoid formal language or long explanations.Guide them to ask about courses, placements, or registration if they seem unsure. Be concise and helpful!"""
+Write the response in a professional, natural style. Be concise, accurate, and specific to the context."""
                 
                 # Call LLM directly
                 response = groq_llm.invoke(prompt)
